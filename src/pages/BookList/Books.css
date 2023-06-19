@@ -1,0 +1,91 @@
+.table {
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.tablehead {
+    font-size: 26px;
+}
+
+.detail-container {
+    width: 30%;
+    border: 5px solid #2a9942;
+    /* height: 800px; */
+    /* justify-content: center; */
+    text-align: center;
+    align-items: center;
+    margin: 30px auto;
+}
+
+
+
+
+/* add book form */
+
+.detailcontainer {
+    width: 40%;
+    border: 5px solid #2a9942;
+    /* height: 800px; */
+    /* justify-content: center; */
+    text-align: center;
+    align-items: center;
+    margin: 30px auto;
+}
+
+.form form {
+    margin: 20px auto;
+}
+
+.form .inputbox {
+    width: 80%;
+    height: 4rem;
+    /* border-bottom: .2rem solid #2a9942; */
+    margin: 3rem auto;
+}
+
+.inputbox input {
+    height: 100%;
+    width: 90%;
+    font-size: 20px;
+    font-weight: 600;
+    padding-left: 25px;
+}
+
+.inputbox label {
+    font-size: 1.5rem;
+    font-weight: 700;
+    pointer-events: none;
+    color: #2a9942;
+    margin: 1rem 0;
+
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.submitbtn {
+    width: 5rem;
+    height: 2rem;
+    background: #2a9942;
+    border: none;
+    outline: none;
+    border-radius: .5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    font-weight: 500;
+    /* box-shadow: 0 0 1rem rgba(0, 0, 0, .5); */
+}
+
+.submitbtn:hover {
+    box-shadow: 0 0 .5rem rgba(0, 0, 0, .5);
+    transition: 0.6s ease;
+}
+
+.btndiv {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 150px;
+}

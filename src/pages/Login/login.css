@@ -1,0 +1,140 @@
+/* login css */
+
+.logreg-box {
+    /* position: absolute; */
+    color: #2a9942;
+    align-items: center;
+    text-align: left;
+    margin: 8rem auto;
+    width: 30%;
+}
+
+.logreg-box .form-box {
+    /* position: absolute; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 30%;
+    height: 100%; */
+    /* background: yellow; */
+    border: 5px solid #2a9942;
+
+}
+
+
+.form-box h2 {
+    text-align: center;
+    font-size: 4rem;
+}
+
+.form-box .input-box {
+    position: relative;
+    width: 25rem;
+    height: 3rem;
+    border-bottom: .1rem solid #2a9942;
+    margin: 1.5rem 0;
+}
+
+.input-box input {
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    color: #2a9942;
+    font-weight: 500;
+    font-size: 20px;
+    /* padding-right: 2rem;
+    padding-left: 2rem; */
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    font-weight: 700;
+    pointer-events: none;
+    transition: .5s ease;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -.4rem;
+}
+
+.input-box .icon {
+    color: #2a9942;
+    position: absolute;
+    right: 0;
+    top: .8rem;
+}
+
+.remember-forgot {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: -0.7rem 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+
+.remember-forgot a {
+    color: #2a9942;
+    text-decoration: none;
+
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.remember-forgot label input {
+    color: #2a9942;
+    accent-color: #2a9942;
+    margin-right: .2rem;
+}
+
+.btn {
+    width: 100%;
+    height: 3rem;
+    background: #2a9942;
+    border: none;
+    outline: none;
+    border-radius: .5rem;
+    cursor: pointer;
+    font-size: 1.6rem;
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, .5);
+}
+
+.login-register {
+    color: #2a9942;
+    font-size: 1.3rem;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 1.5rem;
+}
+
+.login-register p a {
+    color: #2a9942;
+    text-decoration: none;
+}
+
+.login-register p a:hover {
+    text-decoration: underline;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

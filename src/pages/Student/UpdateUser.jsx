@@ -6,6 +6,10 @@ import { Button } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { useParams, useLocation } from 'react-router-dom'
 import { useUser } from '../../contexts/UserContext'
+import { updateDoc } from '@firebase/firestore'
+import { doc } from '@firebase/firestore'
+import { db } from '../../firebase/config'
+
 
 export const UpdateUser = () => {
     const navigate = useNavigate()
@@ -19,12 +23,23 @@ export const UpdateUser = () => {
     }, [])
     // console.log(user)
 
-    const [name, setName] = useState("")
-    const [phone, setPhone] = useState("")
+    // const [name, setName] = useState("")
+    // const [phone, setPhone] = useState("")
     const [college, setCollege] = useState("")
     const [course, setCourse] = useState("")
     const [stream, setStream] = useState("")
     const [year, setYear] = useState("")
+
+
+
+    const updateProfile = async (id, e) => {
+        const doDoc = doc(db, "Users", id)
+        const change = { stream: stream, course: course, college: college, year: year }
+        await updateDoc(doDoc, change)
+        navigate(isAdmin ? `/admin/profile` : `/student/${user.lid}/profile`)
+    }
+
+
 
     return (
         <div>
@@ -43,11 +58,11 @@ export const UpdateUser = () => {
                             <div className="flex">
                                 <div className="inputbox">
                                     <label>Name</label>
-                                    <input type="text" required onChange={(e) => { setName(e.target.value) }} defaultValue={user?.name} />
+                                    <input type="text" required value={user?.name} />
                                 </div>
                                 <div className="inputbox">
                                     <label>Phone</label>
-                                    <input type="number" required onChange={(e) => { setPhone(e.target.value) }} defaultValue={user?.phone} />
+                                    <input type="number" required value={user?.phone} />
                                 </div>
                             </div>
                             <div className="flex">
@@ -94,14 +109,14 @@ export const UpdateUser = () => {
                             component={Link}
                             size="small"
                             // to={`/admin/home/`}
-                            // onClick={() => navigate(`/books/${book.isbn}`)}
+                            onClick={() => updateProfile(user?.id)}
                             style={{ background: "#2a9942", marginLeft: "5px", marginBottom: "20px", width: "100px", fontSize: "16px" }}
                         >UPDATE </Button>
                         <Button
                             variant="contained"
                             component={Link}
                             size="small"
-                            to={isAdmin ? `/admin/users/${user?.id}/profile` : `/student/${user?.id}/profile`}
+                            // to={isAdmin ? `/admin/users/${user?.lid}/profile` : `/student/${user?.lid}/profile`}
                             onClick={() => navigate(-1)}
                             style={{ background: "#2a9942", marginLeft: "5px", marginBottom: "20px", width: "100px", fontSize: "16px" }}
                             state={user}

@@ -16,6 +16,7 @@ export const StudentSignup = () => {
     const [regPassword, setRegPassword] = useState("")
     const [regUsername, setRegUsername] = useState("")
     const [regPhone, setRegPhone] = useState(0)
+
     const [lid, setLid] = useState(0)
 
     const userCollectionRef = collection(db, "Users")
@@ -44,6 +45,9 @@ export const StudentSignup = () => {
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        setLid(Math.floor(Math.random() * 99999) + 10000)
+    }, [])
 
 
     const studentReg = async () => {
@@ -55,8 +59,6 @@ export const StudentSignup = () => {
                 phoneNumber: regPhone,
             })
             // console.log(user1.user)
-            setLid(Math.floor(Math.random() * 90000) + 10000)
-            setLid(Math.floor(Math.random() * 90000) + 10000)
             createUser()
             navigate(`/student/home`)
         } catch (error) {

@@ -45,7 +45,7 @@ export const ProfilePage = () => {
                         <TableRow>
                             <TableCell style={{ fontSize: "26px" }} align='center'>Library-ID</TableCell>
                             <TableCell style={{ fontSize: "26px" }} align='left'>---</TableCell>
-                            <TableCell style={{ fontSize: "26px" }} align='center'>{user?.id}</TableCell>
+                            <TableCell style={{ fontSize: "26px" }} align='center'>{user?.lid}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell style={{ fontSize: "26px" }} align='center'>Stream</TableCell>

@@ -40,7 +40,7 @@ export const UserTable = () => {
                     </Typography> */}
                 </div>
 
-                {userList.length > 0 ? (
+                {userList.length > 1 ? (
                     <>
                         <div className='table'>
                             <TableContainer component={Paper}  >
@@ -128,7 +128,7 @@ export const UserTable = () => {
 
                     </>
                 ) : (
-                    <Typography variant='h4'> No Books found!</Typography>
+                    <Typography variant='h4'> No Users found!</Typography>
                 )
                 }
             </div>

@@ -91,25 +91,25 @@ export const BooksTable = () => {
                                         : booksList
                                     ).map((book, index) => (
                                         <TableRow
-                                            key={book.isbn}
+                                            key={book?.isbn}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                             <TableCell style={{ fontSize: "20px" }} >{index + 1}</TableCell>
                                             <TableCell component="th" scope="row" style={{ fontSize: "20px" }}>
-                                                {book.name}
+                                                {book?.name}
                                             </TableCell>
-                                            <TableCell style={{ fontSize: "20px" }} align="right">{book.author}</TableCell>
-                                            <TableCell style={{ fontSize: "20px" }} align="right">{book.category}</TableCell>
-                                            <TableCell style={{ fontSize: "20px" }} align="right">{book.isbn}</TableCell>
-                                            <TableCell style={{ fontSize: "20px" }} align="right">{book.copies}</TableCell>
-                                            <TableCell style={{ fontSize: "20px" }} align="right">{book.available}</TableCell>
-                                            <TableCell style={{ fontSize: "26px" }} align="right">&#8377;{book.price}</TableCell>
+                                            <TableCell style={{ fontSize: "20px" }} align="right">{book?.author}</TableCell>
+                                            <TableCell style={{ fontSize: "20px" }} align="right">{book?.category}</TableCell>
+                                            <TableCell style={{ fontSize: "20px" }} align="right">{book?.isbn}</TableCell>
+                                            <TableCell style={{ fontSize: "20px" }} align="right">{book?.copies}</TableCell>
+                                            <TableCell style={{ fontSize: "20px" }} align="right">{book?.available}</TableCell>
+                                            <TableCell style={{ fontSize: "26px" }} align="right">&#8377;{book?.price}</TableCell>
                                             <TableCell align="right">
                                                 <Button
                                                     variant="contained"
                                                     component={Link}
                                                     size="small"
-                                                    to={`/student/books/${book.isbn}/details`}
+                                                    to={isAdmin ? `/admin/books/${book?.isbn}/details` : `/student/books/${book?.isbn}/details`}
                                                     // onClick={() => navigate(`/books/${book.isbn}`)}
                                                     style={{ background: "#2a9942", marginLeft: "5px" }}
                                                     state={book}
@@ -119,7 +119,7 @@ export const BooksTable = () => {
                                                         variant="contained"
                                                         component={Link}
                                                         size="small"
-                                                        to={`/admin/books/${book.isbn}/details/updatebook`}
+                                                        to={`/admin/books/${book?.isbn}/details/updatebook`}
                                                         // onClick={() => navigate(`/books/${book.isbn}`)}
                                                         style={{ background: "#2a9942", marginLeft: "5px" }}
                                                         state={book}
@@ -128,7 +128,7 @@ export const BooksTable = () => {
                                                         variant="contained"
                                                         component={Link}
                                                         size="small"
-                                                        onClick={() => deleteBook(book.id)}
+                                                        onClick={() => deleteBook(book?.id)}
                                                         style={{ background: "red", marginLeft: "5px" }}
                                                         state={book}
                                                     >Delete</Button>

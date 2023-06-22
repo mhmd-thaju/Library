@@ -43,13 +43,13 @@ export const AddBook = () => {
 
 
     const obj = {
-        name: name,
-        isbn: isbn,
-        copies: copies,
-        available: available,
-        price: price,
-        author: author,
-        category: category
+        name: name || book?.name,
+        isbn: isbn || book?.isbn,
+        copies: copies || book?.copies,
+        available: available || book?.available,
+        price: price || book?.price,
+        author: author || book?.author,
+        category: category || book?.category
     }
     const navigate = useNavigate()
 

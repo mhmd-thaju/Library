@@ -45,6 +45,7 @@ function App() {
             <Route path='/student/mybooks' element={<StdBooks />} />
             <Route path='/student/mybooks/:isbn/details' element={<BookDetails />} />
             <Route path='/student/books/:isbn/details' element={<AllBookDetails />} />
+            <Route path='/admin/books/:isbn/details' element={<AllBookDetails />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </UserProvider>

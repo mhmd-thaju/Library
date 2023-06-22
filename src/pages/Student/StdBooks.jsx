@@ -15,9 +15,13 @@ import "../BookList/Books.css"
 import { StdNavbar } from '../../components/Navbar/StdNavbar';
 import { useUser } from '../../contexts/UserContext';
 import { useLocation } from 'react-router-dom';
+import { doc, updateDoc } from '@firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+
 
 export const StdBooks = () => {
 
+    const navigate = useNavigate()
 
     let { user, isAdmin } = useUser()
 
@@ -74,6 +78,26 @@ export const StdBooks = () => {
     }, [books, AllBooksList]);
 
 
+    const ReturnBook = async (book) => {
+        const doDocUser = doc(db, "Users", user.id)
+        const index = issuedBooks.indexOf(book.isbn)
+        const change = { issued: [...issuedBooks.slice(0, index), ...issuedBooks.slice(index + 1)] }
+
+        const doDocBook = doc(db, "BooksList", book.id)
+        const availableChange = { available: book.available + 1 }
+
+        await updateDoc(doDocBook, availableChange)
+        await updateDoc(doDocUser, change)
+        navigate(`/student/mybooks`)
+    }
+
+
+    const [issuedBooks, setIssuedBooks] = useState([])
+    useEffect(() => {
+        setIssuedBooks(user.issued)
+    }, [user, issuedBooks])
+    // console.log(issuedBooks)
+
     const [rowPerPage, setRowsPerPage] = useState(10)
     const [page, setPage] = useState(0)
 
@@ -126,7 +150,7 @@ export const StdBooks = () => {
                                                         component={Link}
                                                         size="small"
                                                         // to={`/mybooks/${book.isbn}`}
-                                                        // onClick={() => navigate(`/books/${book.isbn}`)}
+                                                        onClick={() => ReturnBook(book)}
                                                         style={{ background: "#2a9942", marginRight: "10px" }}
                                                     >Return</Button></>}
                                                 <Button

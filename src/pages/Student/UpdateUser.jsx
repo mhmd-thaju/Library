@@ -10,11 +10,11 @@ import { updateDoc } from '@firebase/firestore'
 import { doc } from '@firebase/firestore'
 import { db } from '../../firebase/config'
 
-
 export const UpdateUser = () => {
     const navigate = useNavigate()
 
-    const { isAdmin } = useUser()
+
+    const { isAdmin, userList } = useUser()
 
     const location = useLocation()
     const [user, setUser] = useState({})
@@ -25,18 +25,38 @@ export const UpdateUser = () => {
 
     // const [name, setName] = useState("")
     // const [phone, setPhone] = useState("")
-    const [college, setCollege] = useState("")
-    const [course, setCourse] = useState("")
-    const [stream, setStream] = useState("")
-    const [year, setYear] = useState("")
+    const [newcollege, setNewCollege] = useState("")
+    const [newcourse, setNewCourse] = useState("")
+    const [newstream, setNewStream] = useState("")
+    const [newyear, setNewYear] = useState("")
+
+
+    const getCurrUser = () => {
+        userList.map((each, index) => {
+            if (each && user && each.id === user.id)
+                return setUser(each)
+            else
+                return null
+        })
+    }
+    useEffect(() => {
+        getCurrUser()
+    }, [])
 
 
 
     const updateProfile = async (id, e) => {
+
         const doDoc = doc(db, "Users", id)
-        const change = { stream: stream, course: course, college: college, year: year }
+        const change = {
+            stream: newstream.length > 0 ? newstream : user?.stream,
+            course: newcourse.length > 0 ? newcourse : user?.course,
+            college: newcollege.length > 0 ? newcollege : user?.college,
+            year: newyear.length > 0 ? newyear : user?.year
+        }
         await updateDoc(doDoc, change)
-        navigate(isAdmin ? `/admin/profile` : `/student/${user.lid}/profile`)
+        navigate(isAdmin ? `/admin/users/${user?.lid}/profile` : `/student/${user?.lid}/profile`, { state: user })
+        window.location.reload(false);
     }
 
 
@@ -68,24 +88,24 @@ export const UpdateUser = () => {
                             <div className="flex">
                                 <div className="inputbox">
                                     <label>College</label>
-                                    <input type="text" required onChange={(e) => { setCollege(e.target.value) }} defaultValue={user?.college} />
+                                    <input type="text" required onChange={(e) => { setNewCollege(e.target.value) }} defaultValue={user?.college} />
                                 </div>
 
                                 <div className="inputbox">
                                     <label>Course</label>
-                                    <input type="text" required onChange={(e) => { setCourse(e.target.value) }} defaultValue={user?.course} />
+                                    <input type="text" required onChange={(e) => { setNewCourse(e.target.value) }} defaultValue={user?.course} />
                                 </div>
                             </div>
 
                             <div className="flex">
                                 <div className="inputbox">
                                     <label>Stream</label>
-                                    <input type="text" required onChange={(e) => { setStream(e.target.value) }} defaultValue={user?.stream} />
+                                    <input type="text" required onChange={(e) => { setNewStream(e.target.value) }} defaultValue={user?.stream} />
                                 </div>
 
                                 <div className="inputbox">
                                     <label>Admission Year</label>
-                                    <input type="number" required onChange={(e) => { setYear(e.target.value) }} defaultValue={user?.year} />
+                                    <input type="number" required onChange={(e) => { setNewYear(e.target.value) }} defaultValue={user?.year} />
                                 </div>
                             </div>
 

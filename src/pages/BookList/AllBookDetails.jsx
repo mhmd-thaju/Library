@@ -28,18 +28,43 @@ export const AllBookDetails = () => {
     // console.log(book)
 
 
-    // const BorrowBook = async (isbn, id) => {
-    //     console.log(id)
-    //     const doDoc = doc(db, "Users", id)
-    //     const change = { issued: [...issuedBooks, isbn] }
-    //     await updateDoc(doDoc, change)
-    // }
+    const BorrowBook = async (isbn, id) => {
+        // console.log(id)
+        const doDocUser = doc(db, "Users", id)
+        const change = { issued: [...issuedBooks, isbn] }
 
-    // const [issuedBooks, setIssuedBooks] = useState([])
-    // useEffect(() => {
-    //     setIssuedBooks(user.issued)
-    // }, [user, issuedBooks])
+        const doDocBook = doc(db, "BooksList", book.id)
+        const availableChange = { available: available - 1 }
+
+        await updateDoc(doDocBook, availableChange)
+        await updateDoc(doDocUser, change)
+
+        navigate(`/student/books/${book?.isbn}/details`, { state: book })
+    }
+
+    const ReturnBook = async (isbn, id) => {
+        const doDocUser = doc(db, "Users", id)
+        const index = issuedBooks.indexOf(isbn)
+        const change = { issued: [...issuedBooks.slice(0, index), ...issuedBooks.slice(index + 1)] }
+
+        const doDocBook = doc(db, "BooksList", book.id)
+        const availableChange = { available: available + 1 }
+
+        await updateDoc(doDocBook, availableChange)
+        await updateDoc(doDocUser, change)
+        navigate(`/student/books/${book?.isbn}/details`, { state: book })
+    }
+
+    const [issuedBooks, setIssuedBooks] = useState([])
+    useEffect(() => {
+        setIssuedBooks(user.issued)
+    }, [user, issuedBooks])
     // console.log(issuedBooks)
+
+    const [available, setAvailable] = useState(0)
+    useEffect(() => {
+        setAvailable(book.available)
+    }, [book, issuedBooks])
 
     return (
         <div>
@@ -95,19 +120,30 @@ export const AllBookDetails = () => {
                                         variant="contained"
                                         component={Link}
                                         size="small"
-                                        to={`/admin/books/${book.isbn}/details/updatebook`}
+                                        to={`/admin/books/${book?.isbn}/details/updatebook`}
                                         style={{ background: "#2a9942", marginRight: "10px" }}
                                         state={book}
                                     >EDIT</Button>
                                 ) : (
-                                    <Button
-                                        variant="contained"
-                                        component={Link}
-                                        size="small"
-                                        // onClick={() => BorrowBook(book?.isbn, user?.id)}
-                                        // to={`/student/books/${book.isbn}/request`}
-                                        style={{ background: "#2a9942", marginRight: "10px" }}
-                                    >BORROW</Button>
+                                    user.issued && user.issued.includes(book?.isbn) ? (
+                                        <Button
+                                            variant="contained"
+                                            component={Link}
+                                            size="small"
+                                            onClick={() => ReturnBook(book?.isbn, user?.id)}
+                                            // to={`/student/books/${book.isbn}/request`}
+                                            style={{ background: "#2a9942", marginRight: "10px" }}
+                                        >RETURN</Button>
+                                    ) : (
+                                        <Button
+                                            variant="contained"
+                                            component={Link}
+                                            size="small"
+                                            onClick={() => BorrowBook(book?.isbn, user?.id)}
+                                            // to={`/student/books/${book.isbn}/request`}
+                                            style={{ background: "#2a9942", marginRight: "10px" }}
+                                        >BORROW</Button>
+                                    )
                                 )}
                             </TableCell>
                             <TableCell style={{ fontSize: "26px" }} align='center'></TableCell>

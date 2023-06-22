@@ -89,8 +89,8 @@ export const StdNavbar = () => {
             onClose={handleClose}
           >
             <MenuItem onClick={() => {
-              navigate(isAdmin ? `/admin/profile` : `/student/${user.lid}/profile`, { state: { user } })
-            }} >Profile</MenuItem>
+              navigate(isAdmin ? `/admin/addadmin` : `/student/${user.lid}/profile`, { state: { user } })
+            }} >{isAdmin ? "Add Admin" : "Profile"}</MenuItem>
 
             <MenuItem onClick={() => {
               studentSignout()
